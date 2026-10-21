@@ -553,6 +553,9 @@ def due_slots(now=None, lookback_minutes=1440):
 
 def slot_is_done(files, planned, route, slot):
     """Tam slotu veya aynı pencereye düşen manuel telafiyi tamamlanmış sayar."""
+    # Legacy callers supply local wall time; normalize before comparing to TRT records.
+    if planned.tzinfo is None:
+        planned = planned.replace(tzinfo=TZ)
     next_slot = planned + timedelta(hours=2)
     if route == "toonzone":
         # Each 10-minute slot is a different part. A manual recovery of
