@@ -50,7 +50,7 @@ def toonzone_part_eligible(slot, ordered, *, used_key, last_slot_key):
             continue
         recorded = str(props.get(last_slot_key) or "")
         scheduled = re.fullmatch(rf"{re.escape(day)}-12-toonzone-part([1-4])", recorded)
-        manual = re.fullmatch(rf"manual-{re.escape(day)}-\d{4}-toonzone-toonzone-part([1-4])", recorded)
+        manual = re.fullmatch(rf"manual-{re.escape(day)}-\d{{4}}-toonzone-toonzone-part([1-4])", recorded)
         sent_part = scheduled or manual
         if sent_part and int(sent_part.group(1)) > slot_part:
             return False
